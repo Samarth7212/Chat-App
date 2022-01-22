@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatelessWidget {
   @override
@@ -15,6 +16,12 @@ class ChatScreen extends StatelessWidget {
           child: const Text('ABCD'),
         ),
         itemCount: 10,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          FirebaseFirestore.instance.collection('chats/8qzhWJNfr5ycZEgV5uUO');
+        },
       ),
     );
   }

@@ -5,12 +5,17 @@ import 'package:flutter/material.dart';
 class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) => Container(
-        padding: const EdgeInsets.all(8),
-        child: const Text('ABCD'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Chat Screen'),
       ),
-      itemCount: 10,
+      body: ListView.builder(
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.all(8),
+          child: const Text('ABCD'),
+        ),
+        itemCount: 10,
+      ),
     );
   }
 }

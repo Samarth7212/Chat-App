@@ -1,5 +1,8 @@
-import 'package:chat_app/Screens/chat_screen.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
+
+import 'package:chat_app/Screens/chat_screen.dart';
 
 void main() => runApp(MyApp());
 

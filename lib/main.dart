@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:chat_app/Screens/auth_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         future: _initialization,
         builder: (context, snapshot) =>
             snapshot.connectionState == ConnectionState.done
-                ? ChatScreen()
+                ? AuthScreen()
                 : const Center(child: Text('ABCDEFGH')),
       ),
     );

@@ -34,13 +34,6 @@ class MyApp extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
         ),
-        // home: FutureBuilder(
-        //   future: _initialization,
-        //   builder: (context, snapshot) =>
-        //       snapshot.connectionState == ConnectionState.done
-        //           ? AuthScreen()
-        //           : const Center(child: Text('ABCDEFGH')),
-        // ),
         home: snapshot.connectionState == ConnectionState.waiting
             ? SplashScreen()
             : StreamBuilder(

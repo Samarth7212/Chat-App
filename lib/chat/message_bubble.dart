@@ -1,12 +1,16 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
+  final String userName;
   final bool isMe;
   Key key;
-  MessageBubble({this.message, this.isMe, this.key});
+  MessageBubble({this.message, this.isMe, this.key, this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +18,25 @@ class MessageBubble extends StatelessWidget {
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          child: Text(
-            message,
-            style: TextStyle(
-              color: isMe
-                  ? Theme.of(context).colorScheme.background
-                  : Colors.black,
-            ),
+          child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              if (!isMe)
+                Text(
+                  userName,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              Text(
+                message,
+                style: TextStyle(
+                  color: isMe
+                      ? Theme.of(context).colorScheme.background
+                      : Colors.black,
+                ),
+                textAlign: isMe ? TextAlign.end : TextAlign.start,
+              ),
+            ],
           ),
           width: 180,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),

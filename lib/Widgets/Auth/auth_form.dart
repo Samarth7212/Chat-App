@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, prefer_final_fields, unused_field, unused_element, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+
+import 'package:chat_app/Widgets/pickers/user_image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   final Function(
     String email,
     String username,
     String password,
+    File image,
     bool isLogin,
     BuildContext ctx,
   ) _submitFm;
@@ -23,22 +27,36 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
+  var _userImageFile;
 
   var _isLogin = true;
 
   void _trySubmit() {
     final _isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
+    if (_userImageFile == null && !_isLogin) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Please pick an image first'),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        duration: Duration(seconds: 3),
+      ));
+      return;
+    }
     if (_isValid) {
       _formKey.currentState.save();
       widget._submitFm(
         _userEmail.trim(),
         _userName.trim(),
         _userPassword.trim(),
+        _userImageFile,
         _isLogin,
         context,
       );
     }
+  }
+
+  void _pickedImage(File image) {
+    _userImageFile = image;
   }
 
   @override
@@ -54,6 +72,7 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                  if (!_isLogin) UserImagePicker(imagePickFn: _pickedImage),
                   emailTextFormField(),
                   if (!_isLogin) userNameTextFormField(),
                   passwordTextFormField(),

@@ -1,3 +1,9 @@
+final picker = ImagePicker();
+final pickedImage = await picker.getImage(...);
+final pickedImageFile = File(pickedImage.path); // requires import 'dart:io';
+
+
+
 https://firebase.flutter.dev/docs/migration/#3-platform-setup
 https://firebase.flutter.dev/docs/migration/
 

@@ -30,6 +30,7 @@ class Messages extends StatelessWidget {
               return ListView.builder(
                 reverse: true,
                 itemBuilder: (context, index) => MessageBubble(
+                  imageUrl:documents[index]['userImage'],
                   message: documents[index]['Text'],
                   isMe: documents[index]['userId'] == futureSnapshot.data.uid,
                   userName: documents[index]['userName'],

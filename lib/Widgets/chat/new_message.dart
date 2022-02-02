@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +18,16 @@ class _NewMessageState extends State<NewMessage> {
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser;
-    final userData=await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-    FirebaseFirestore.instance.collection('chat').add({
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    await FirebaseFirestore.instance.collection('chat').add({
       'Text': _enteredMsg,
       'createdAt': Timestamp.now(),
       'userId': user.uid,
-      'userName':userData['username'],
+      'userName': userData['username'],
+      'userImage':userData['imageUrl'],
     });
     _controller.clear();
   }

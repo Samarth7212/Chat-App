@@ -24,8 +24,11 @@ class _UserImagePickerState extends State<UserImagePicker> {
               children: <Widget>[
                 TextButton.icon(
                   onPressed: () async {
-                    final pickedImage =
-                        await picker.getImage(source: ImageSource.camera);
+                    final pickedImage = await picker.getImage(
+                      source: ImageSource.camera,
+                      imageQuality: 50,
+                      maxWidth: 150,
+                    );
                     if (pickedImage != null) {
                       final pickedImageFile = File(pickedImage.path);
                       setState(() {

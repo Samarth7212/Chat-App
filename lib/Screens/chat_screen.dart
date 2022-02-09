@@ -4,9 +4,20 @@ import 'package:chat_app/Widgets/chat/messages.dart';
 import 'package:chat_app/Widgets/chat/new_message.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    final fbm = FirebaseMessaging.instance;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +32,20 @@ class ChatScreen extends StatelessWidget {
             },
             items: [
               DropdownMenuItem(
-                  value: 'logout',
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          const Icon(Icons.exit_to_app, color: Colors.black),
-                          const SizedBox(width: 8),
-                          const Text('LOGOUT')
-                        ],
-                      ),
-                    ],
-                  ))
+                value: 'logout',
+                child: Column(
+                  children: [
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        const Icon(Icons.exit_to_app, color: Colors.black),
+                        const SizedBox(width: 8),
+                        const Text('LOGOUT')
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ],
             icon: Icon(
               Icons.more_vert,
@@ -45,7 +57,6 @@ class ChatScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Expanded(
-
             child: Messages(),
           ),
           NewMessage(),
